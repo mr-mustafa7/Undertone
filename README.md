@@ -6,6 +6,11 @@
 > explainable, cited summary to a clinician — human-in-the-loop, never an autonomous diagnosis.
 >
 > Built for the ReimagineHealth hackathon (eMed × OpenAI). *Working name — see [NAMES.md](./NAMES.md).*
+>
+> Using Prometheux as the backend. Here is the ontology and data flow:
+> <img width="714" height="582" alt="image" src="https://github.com/user-attachments/assets/1b9b8ca7-c6fd-4bd4-86e1-bdbf06b928ca" />
+<img width="385" height="610" alt="image" src="https://github.com/user-attachments/assets/658d9369-a4e7-4816-98e6-cf113b984e9e" />
+
 
 ## The one-line thesis
 50% of metabolic-programme patients quit within a year; the proven fix is frequent contact (49×
