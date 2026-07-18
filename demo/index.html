@@ -8,324 +8,262 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#0a0e15; --panel:#111826; --panel2:#0e1420; --line:rgba(255,255,255,.06);
-    --teal:#22c197; --teal2:#2dd4bf; --red:#f0556b; --muted:#7c8aa5; --ink:#e9eef7;
-  }
+  :root{ --bg:#0a0e15; --panel:#111826; --line:rgba(255,255,255,.06); --teal:#22c197; --teal2:#2dd4bf; --red:#f0556b; --amber:#f4b942; --muted:#7c8aa5; --ink:#e9eef7; }
   *{ font-family:'Inter',ui-sans-serif,system-ui,sans-serif; }
   body{ background:var(--bg); color:var(--ink); }
-  .panel{ background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,0)) , var(--panel); border:1px solid var(--line); border-radius:22px; }
+  .panel{ background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,0)), var(--panel); border:1px solid var(--line); border-radius:22px; }
   .soft{ box-shadow:0 24px 60px -30px rgba(0,0,0,.8); }
   .nav-ic{ width:44px;height:44px;border-radius:14px;display:grid;place-items:center;color:#64748b;transition:.2s;cursor:pointer;}
   .nav-ic:hover{ color:#cbd5e1;background:rgba(255,255,255,.04);}
   .nav-ic.active{ color:#0a0e15;background:linear-gradient(135deg,var(--teal),var(--teal2));}
-  .pill{ font-size:12px;padding:6px 12px;border-radius:10px;color:var(--muted);cursor:pointer;transition:.15s;}
+  .pill{ font-size:12px;padding:6px 12px;border-radius:10px;color:var(--muted);cursor:pointer;transition:.15s;user-select:none;}
   .pill.active{ background:rgba(255,255,255,.07);color:#e9eef7;}
   .pulse-ring{ animation:pr 1.6s ease-out infinite;} @keyframes pr{0%{transform:scale(.85);opacity:.6}100%{transform:scale(2.1);opacity:0}}
-  .fade{ animation:fade .5s ease both;} @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .fade{ animation:fade .45s ease both;} @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
   .mono{ font-family:ui-monospace,SFMono-Regular,Menlo,monospace;}
-  .tabbtn.active{ background:rgba(34,193,151,.14);border-color:rgba(34,193,151,.5);color:#c7f5e7;}
-  .grow-in{ animation:gi .6s cubic-bezier(.2,.8,.2,1) both;} @keyframes gi{from{height:0}}
+  .rolebtn.active{ background:rgba(34,193,151,.14);border-color:rgba(34,193,151,.5);color:#c7f5e7;}
+  .switch{ width:38px;height:22px;border-radius:999px;background:rgba(255,255,255,.12);position:relative;cursor:pointer;transition:.2s;flex:none;}
+  .switch.on{ background:var(--teal);}
+  .switch .dot{ position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.2s;}
+  .switch.on .dot{ left:18px;}
+  .row{ cursor:pointer;transition:.15s;} .row:hover{ background:rgba(255,255,255,.03);}
+  .toast{ position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#16202f;border:1px solid var(--line);padding:10px 16px;border-radius:12px;font-size:13px;z-index:50;box-shadow:0 20px 40px -20px #000;animation:fade .3s ease;}
 </style>
 </head>
 <body class="min-h-screen">
 <div class="flex min-h-screen">
 
-  <!-- ===== SIDEBAR ===== -->
+  <!-- SIDEBAR -->
   <aside class="w-[76px] shrink-0 border-r border-white/5 flex flex-col items-center py-5 gap-2">
     <div class="w-11 h-11 rounded-2xl grid place-items-center mb-4" style="background:linear-gradient(135deg,var(--teal),var(--teal2))">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0a0e15" stroke-width="2.2" stroke-linecap="round"><path d="M12 3v18M7 8v8M17 6v12M3 11v2M21 10v4"/></svg>
     </div>
-    <div class="nav-ic active"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><rect x="7" y="10" width="3" height="8"/><rect x="12" y="6" width="3" height="12"/><rect x="17" y="13" width="3" height="5"/></svg></div>
-    <div class="nav-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4"/></svg></div>
-    <div class="nav-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg></div>
-    <div class="nav-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 11l9-8 9 8v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
-    <div class="mt-auto nav-ic"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1l2-1.6-2-3.4-2.4 1a7 7 0 0 0-1.7-1L14.5 2h-4l-.3 2.6a7 7 0 0 0-1.7 1l-2.4-1-2 3.4L4.1 11a7 7 0 0 0 0 2l-2 1.6 2 3.4 2.4-1a7 7 0 0 0 1.7 1l.3 2.6h4l.3-2.6a7 7 0 0 0 1.7-1l2.4 1 2-3.4-2-1.6a7 7 0 0 0 .1-1z"/></svg></div>
-    <div class="w-9 h-9 rounded-full bg-white/10 mt-2 grid place-items-center text-xs font-semibold">S</div>
+    <div id="nav" class="flex flex-col gap-2"></div>
+    <div class="mt-auto w-9 h-9 rounded-full bg-white/10 grid place-items-center text-xs font-semibold" id="navAvatar">S</div>
   </aside>
 
-  <!-- ===== MAIN ===== -->
+  <!-- MAIN -->
   <main class="flex-1 min-w-0 px-6 py-5">
-
     <!-- topbar -->
     <div class="flex items-center gap-3 mb-6">
-      <div class="flex-1 relative max-w-2xl">
-        <svg class="absolute left-4 top-1/2 -translate-y-1/2" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
-        <input placeholder="Search Undertone — patients, signals, escalations…" class="w-full bg-white/[.04] border border-white/5 rounded-xl pl-11 pr-4 py-2.5 text-sm text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-white/10"/>
-      </div>
-      <div class="flex gap-1.5 bg-white/[.04] border border-white/5 rounded-xl p-1">
-        <button onclick="showTab('patient')" id="tab-patient" class="tabbtn active text-sm px-3.5 py-1.5 rounded-lg border border-transparent text-slate-300 transition">Patient</button>
-        <button onclick="showTab('clinician')" id="tab-clinician" class="tabbtn text-sm px-3.5 py-1.5 rounded-lg border border-transparent text-slate-400 transition">Clinician</button>
+      <div id="searchWrap" class="flex-1 relative max-w-2xl"></div>
+      <div class="flex items-center gap-2">
+        <div id="secChip" class="hidden md:flex items-center gap-1.5 text-[11px] text-emerald-300/80 bg-emerald-400/[.06] border border-emerald-400/15 rounded-lg px-2.5 py-2">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+          Encrypted · access logged
+        </div>
+        <div class="flex gap-1.5 bg-white/[.04] border border-white/5 rounded-xl p-1">
+          <span class="text-[10px] text-slate-500 self-center pl-1 pr-0.5">view</span>
+          <button onclick="setRole('patient')" id="role-patient" class="rolebtn active text-sm px-3 py-1.5 rounded-lg border border-transparent text-slate-300 transition">Patient</button>
+          <button onclick="setRole('clinician')" id="role-clinician" class="rolebtn text-sm px-3 py-1.5 rounded-lg border border-transparent text-slate-400 transition">Clinician</button>
+        </div>
       </div>
     </div>
 
-    <!-- headline -->
+    <!-- header -->
     <div class="flex items-end justify-between mb-4">
       <div>
         <div class="text-xl font-semibold tracking-tight flex items-center gap-2">Undertone <span class="text-[11px] font-medium text-teal-300 bg-teal-400/10 border border-teal-400/20 rounded-full px-2 py-0.5">listening layer</span></div>
-        <div class="text-sm text-slate-500">Sarah M. · 52 · T2D + obesity programme · week 6 · London</div>
+        <div id="subhead" class="text-sm text-slate-500"></div>
       </div>
-      <div class="text-right hidden md:block">
-        <div class="text-xs text-slate-500">catches disease before a diagnosis does</div>
-      </div>
+      <div id="consentChip" class="text-right hidden md:block"></div>
     </div>
 
-    <!-- ============ PATIENT ============ -->
-    <section id="view-patient">
-      <div class="grid grid-cols-12 gap-4">
-
-        <!-- HERO chart -->
-        <div class="col-span-12 lg:col-span-7 panel soft p-5">
-          <div class="flex items-start justify-between">
-            <div>
-              <div class="flex items-center gap-2 text-slate-300 text-sm font-medium">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal2)" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-                Muscle-Integrity Index
-              </div>
-              <div class="mt-2 flex items-end gap-2">
-                <span id="heroNum" class="text-5xl font-extrabold tracking-tight tabular-nums">60.0</span>
-                <span class="text-slate-500 mb-1.5 text-sm">idx</span>
-                <span id="heroDelta" class="mb-2 text-xs px-2 py-0.5 rounded-full bg-rose-400/10 text-rose-300 border border-rose-400/20">▲ rising · watch</span>
-              </div>
-              <div class="text-[11px] text-slate-500 mt-1">zero-crossing + peak-variation markers of sarcopenic frailty · JMIR 2024</div>
-            </div>
-            <div class="flex gap-1 bg-white/[.03] rounded-xl p-1">
-              <span class="pill">1D</span><span class="pill active">1W</span><span class="pill">1M</span><span class="pill">1Y</span><span class="pill">All</span>
-            </div>
-          </div>
-          <div class="mt-2"><svg id="chart" viewBox="0 0 640 260" class="w-full"></svg></div>
-          <div id="verdict" class="text-sm text-slate-400 -mt-1"></div>
-        </div>
-
-        <!-- SIGNALS (organ systems) -->
-        <div class="col-span-12 lg:col-span-5 panel soft p-5">
-          <div class="flex items-center justify-between mb-4">
-            <div class="flex items-center gap-2 text-slate-300 text-sm font-medium">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal2)" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12l2.5 2.5L16 9"/></svg>
-              Organ signals · one listening layer
-            </div>
-            <span class="text-xs text-teal-300 cursor-pointer">See all</span>
-          </div>
-          <div class="grid grid-cols-4 gap-2 items-end" style="height:220px">
-            <div class="flex flex-col items-center h-full justify-end">
-              <div class="text-lg font-bold">61</div>
-              <div class="w-full rounded-xl grow-in" style="height:78%;background:linear-gradient(180deg,var(--teal),#0e9f7e)"></div>
-              <div class="mt-2 text-xs text-slate-300 flex flex-col items-center">💪 Muscle<span class="text-[10px] text-teal-300">LIVE</span></div>
-            </div>
-            <div class="flex flex-col items-center h-full justify-end">
-              <div class="text-lg font-bold text-slate-400">—</div>
-              <div class="w-full rounded-xl" style="height:34%;background:rgba(255,255,255,.06)"></div>
-              <div class="mt-2 text-xs text-slate-400 flex flex-col items-center">🫀 Cardiac<span class="text-[10px] text-slate-500">soon</span></div>
-            </div>
-            <div class="flex flex-col items-center h-full justify-end">
-              <div class="text-lg font-bold text-slate-400">—</div>
-              <div class="w-full rounded-xl" style="height:26%;background:rgba(255,255,255,.06)"></div>
-              <div class="mt-2 text-xs text-slate-400 flex flex-col items-center">🩸 Glycemic<span class="text-[10px] text-slate-500">soon</span></div>
-            </div>
-            <div class="flex flex-col items-center h-full justify-end">
-              <div class="text-lg font-bold text-slate-400">—</div>
-              <div class="w-full rounded-xl" style="height:20%;background:rgba(255,255,255,.06)"></div>
-              <div class="mt-2 text-xs text-slate-400 flex flex-col items-center">🧫 Renal<span class="text-[10px] text-slate-500">soon</span></div>
-            </div>
-          </div>
-          <div class="text-[11px] text-slate-500 mt-3">Add an organ system by adding rules — not by retraining a black box. The 3-year vision: your voice as a continuous vital sign across every system.</div>
-        </div>
-
-        <!-- CHECK-IN -->
-        <div class="col-span-12 lg:col-span-5 panel soft p-5">
-          <div class="flex items-center justify-between mb-3">
-            <div class="text-slate-300 text-sm font-medium">Daily voice check-in · Day 21</div>
-            <div class="text-[11px] text-slate-500">~60s · no app to open</div>
-          </div>
-          <div id="chat" class="space-y-2.5 mb-4">
-            <div class="flex gap-2 items-start fade">
-              <div class="w-7 h-7 shrink-0 rounded-full grid place-items-center text-xs font-semibold" style="background:linear-gradient(135deg,var(--teal),var(--teal2));color:#0a0e15">U</div>
-              <div class="bg-white/[.05] rounded-2xl rounded-tl-sm px-3 py-2 text-sm max-w-[85%]">Morning, Sarah. Yesterday your legs felt heavy on the stairs — how are they today?</div>
-            </div>
-          </div>
-          <div class="grid place-items-center py-2">
-            <div class="relative">
-              <div id="ring" class="absolute inset-0 rounded-full pulse-ring hidden" style="background:var(--teal)"></div>
-              <button id="micBtn" onclick="toggleRecord()" class="relative w-16 h-16 rounded-full grid place-items-center soft transition" style="background:linear-gradient(135deg,var(--teal),var(--teal2))">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0a0e15" stroke-width="2.2" stroke-linecap="round"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4"/></svg>
-              </button>
-            </div>
-            <div id="micLabel" class="text-sm text-slate-300 mt-2.5">Tap to answer out loud</div>
-            <canvas id="wave" width="360" height="42" class="mt-2 opacity-70"></canvas>
-          </div>
-          <div id="liveFeat" class="hidden grid grid-cols-3 gap-2 text-center mono text-xs mt-1">
-            <div class="bg-white/[.04] rounded-lg py-2"><div class="text-slate-500">energy</div><div id="fEnergy" class="text-base text-teal-300">—</div></div>
-            <div class="bg-white/[.04] rounded-lg py-2"><div class="text-slate-500">ZCR</div><div id="fZcr" class="text-base text-teal-300">—</div></div>
-            <div class="bg-white/[.04] rounded-lg py-2"><div class="text-slate-500">pitch Hz</div><div id="fPitch" class="text-base text-teal-300">—</div></div>
-          </div>
-        </div>
-
-        <!-- SNAP -->
-        <div class="col-span-12 lg:col-span-4 panel soft p-5">
-          <div class="flex items-center gap-2 text-slate-300 text-sm font-medium mb-3">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal2)" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-            Snap a reading
-          </div>
-          <button onclick="doSnap()" class="w-full rounded-xl bg-white/[.04] border border-white/5 hover:bg-white/[.07] transition py-6 grid place-items-center mb-3">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#9fb4dd" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-          </button>
-          <div id="snapOut" class="text-sm text-slate-400">Photograph a BP cuff, scale, or plate — no typing.</div>
-        </div>
-
-        <!-- BP -->
-        <div class="col-span-12 lg:col-span-3 panel soft p-5">
-          <div class="flex items-center gap-2 text-slate-300 text-sm font-medium mb-2">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal2)" stroke-width="2"><path d="M3 12h4l2 6 4-14 2 8h6"/></svg>
-            Blood Pressure
-          </div>
-          <svg viewBox="0 0 180 70" class="w-full">
-            <g id="bpbars"></g>
-          </svg>
-          <div class="mt-1"><span id="bpNum" class="text-2xl font-bold tabular-nums">118</span><span class="text-slate-500 text-xs ml-1">/78 mmHg</span></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============ CLINICIAN ============ -->
-    <section id="view-clinician" class="hidden">
-      <div class="panel soft p-5">
-        <div class="flex items-center justify-between mb-4">
-          <div class="text-slate-300 text-sm font-medium">Clinical inbox · escalations that crossed a threshold</div>
-          <div class="text-[11px] text-slate-500">human-in-the-loop · nothing auto-diagnosed</div>
-        </div>
-        <div id="inbox" class="text-sm text-slate-500 py-12 text-center">No escalations yet. Complete a patient check-in that shows drift to generate one.</div>
-      </div>
-    </section>
-
+    <div id="content"></div>
     <footer class="text-center text-[11px] text-slate-600 mt-6">Undertone · prototype · muscle signal live, cardiac / glycemic / renal on roadmap · built for ReimagineHealth</footer>
   </main>
 </div>
 
 <script>
-const baseline=32, threshold=58;
-const series=[30,31,33,32,34,33,35,36,35,38,39,41,42,44,46,49,51,54,57,60];
-let today=null, recording=false, audioCtx, analyser, micStream, rafId;
+// ---------------- STATE ----------------
+const state = { role:'patient', pSection:'overview', cSection:'inbox', range:'1M', escalation:'open', checkinDone:false };
+const patient = { name:'Sarah M.', age:52, ctx:'T2D + obesity programme · week 6 · London', consent:'Care team only' };
+const cohort = [
+  { id:'sarah', name:'Sarah M.', age:52, status:'flag', note:'Muscle index crossed threshold', tag:'T2D + obesity' },
+  { id:'james', name:'James O.', age:61, status:'stable', note:'Stable · last check-in today', tag:'HFpEF programme' },
+  { id:'priya', name:'Priya R.', age:47, status:'stable', note:'Stable · adherence 94%', tag:'T2D' },
+  { id:'aisha', name:'Aisha K.', age:58, status:'watch', note:'Mild upward drift · monitoring', tag:'Obesity + HTN' },
+];
+let audit = [
+  { t:'08:42', who:'Dr. Chen', act:'Signed in', obj:'—' },
+  { t:'08:43', who:'System', act:'Voice check-in received', obj:'Sarah M.' },
+];
+// chart datasets per range
+const DATA = {
+  '1D':[59,60,59,61,60,60,61,60,61,60,61,61],
+  '1W':[52,54,55,57,56,58,60],
+  '1M':[30,31,33,32,34,33,35,36,35,38,39,41,42,44,46,49,51,54,57,60],
+  '1Y':[40,42,41,44,46,45,48,50,53,55,58,60],
+  'All':[28,30,31,33,32,34,33,35,36,35,38,39,41,42,44,46,49,51,54,57,60],
+};
+const threshold=58;
+let recording=false,audioCtx,analyser,micStream,rafId;
 
-// ---- smooth area chart (cardinal spline) ----
-function smooth(pts){
-  if(pts.length<3) return pts.map((p,i)=>(i?'L':'M')+p[0]+' '+p[1]).join(' ');
-  let d='M'+pts[0][0]+' '+pts[0][1];
-  for(let i=0;i<pts.length-1;i++){
-    const p0=pts[i-1]||pts[i], p1=pts[i], p2=pts[i+1], p3=pts[i+2]||p2;
-    const c1x=p1[0]+(p2[0]-p0[0])/6, c1y=p1[1]+(p2[1]-p0[1])/6;
-    const c2x=p2[0]-(p3[0]-p1[0])/6, c2y=p2[1]-(p3[1]-p1[1])/6;
-    d+=` C${c1x.toFixed(1)} ${c1y.toFixed(1)}, ${c2x.toFixed(1)} ${c2y.toFixed(1)}, ${p2[0].toFixed(1)} ${p2[1].toFixed(1)}`;
+// ---------------- ICONS ----------------
+const IC = {
+  chart:'<path d="M3 3v18h18"/><rect x="7" y="10" width="3" height="8"/><rect x="12" y="6" width="3" height="12"/><rect x="17" y="13" width="3" height="5"/>',
+  mic:'<path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4"/>',
+  user:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+  gear:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-2.7-1.1l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.6 1.6 0 0 0 4.6 15H4.5a2 2 0 1 1 0-4h.1A1.6 1.6 0 0 0 6.3 8.3l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.6 1.6 0 0 0 12 4.6V4.5a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 2.7 1.1l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8"/>',
+  inbox:'<path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5 5h14l3 7v6a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-6z"/>',
+  users:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
+  shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+};
+const NAV = {
+  patient:[ ['overview','chart','Overview'], ['checkin','mic','Check-in'], ['profile','user','Profile'], ['settings','gear','Settings'] ],
+  clinician:[ ['inbox','inbox','Inbox'], ['panel','users','Patients'], ['audit','shield','Audit'], ['settings','gear','Settings'] ],
+};
+
+function icon(k){ return `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${IC[k]}</svg>`; }
+
+// ---------------- RENDER ----------------
+function renderNav(){
+  const items = NAV[state.role];
+  const cur = state.role==='patient'?state.pSection:state.cSection;
+  document.getElementById('nav').innerHTML = items.map(([id,ic,label])=>
+    `<div class="nav-ic ${id===cur?'active':''}" title="${label}" onclick="goSection('${id}')">${icon(ic)}</div>`).join('');
+  document.getElementById('navAvatar').textContent = state.role==='patient'?'S':'C';
+}
+function renderTop(){
+  const sw=document.getElementById('searchWrap');
+  if(state.role==='clinician'){
+    sw.innerHTML=`<svg class="absolute left-4 top-1/2 -translate-y-1/2" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+      <input id="pSearch" oninput="filterPanel(this.value)" placeholder="Search your patient panel…" class="w-full bg-white/[.04] border border-white/5 rounded-xl pl-11 pr-4 py-2.5 text-sm text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-white/10"/>
+      <span class="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-slate-500">care-team access · audit-logged</span>`;
+  } else {
+    // patient role: NO cross-patient search — scoped self-query only
+    sw.innerHTML=`<svg class="absolute left-4 top-1/2 -translate-y-1/2" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1"/></svg>
+      <input placeholder="Ask Undertone about your health…" onkeydown="if(event.key==='Enter'){toast('Answered from your own records only');this.value='';}" class="w-full bg-white/[.04] border border-white/5 rounded-xl pl-11 pr-4 py-2.5 text-sm text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-white/10"/>
+      <span class="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-slate-500">your data only</span>`;
   }
-  return d;
+  document.getElementById('secChip').classList.toggle('hidden', false);
+  document.getElementById('subhead').textContent = state.role==='patient'
+    ? `${patient.name} · ${patient.age} · ${patient.ctx}`
+    : `Dr. Chen · care team · ${cohort.length} patients · every access audit-logged`;
+  document.getElementById('consentChip').innerHTML = state.role==='patient'
+    ? `<div class="text-[11px] text-slate-500">Data sharing: <span class="text-teal-300">${patient.consent}</span> · <span class="underline cursor-pointer" onclick="goSection('settings')">manage</span></div>`
+    : `<div class="text-[11px] text-slate-500">catches disease before a diagnosis does</div>`;
 }
-function drawChart(withToday){
-  const svg=document.getElementById('chart'); const W=640,H=260,pad=30,padT=20;
-  const data= withToday!=null? [...series,withToday] : [...series];
-  const n=data.length, min=25, max=68;
-  const x=i=> pad + i*(W-2*pad)/(n-1);
-  const y=v=> H-pad - (v-min)*(H-pad-padT)/(max-min);
-  const pts=data.map((v,i)=>[x(i),y(v)]);
-  const line=smooth(pts);
-  const area=line+` L${x(n-1)} ${H-pad} L${x(0)} ${H-pad} Z`;
-  const thY=y(threshold);
-  const last=pts[n-1], lastCrossed= data[n-1]>=threshold;
-  svg.innerHTML=`
-    <defs>
-      <linearGradient id="ag" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#22c197" stop-opacity="0.35"/>
-        <stop offset="1" stop-color="#22c197" stop-opacity="0"/>
-      </linearGradient>
-    </defs>
-    ${[40,50,60,70,80].map(v=>`<line x1="${pad}" y1="${y(v)}" x2="${W-pad}" y2="${y(v)}" stroke="rgba(255,255,255,.04)"/>`).join('')}
-    <line x1="${pad}" y1="${thY}" x2="${W-pad}" y2="${thY}" stroke="var(--red)" stroke-width="1" stroke-dasharray="5 5" opacity=".7"/>
-    <text x="${W-pad}" y="${thY-6}" fill="var(--red)" font-size="10" text-anchor="end">escalation threshold</text>
-    <path d="${area}" fill="url(#ag)"/>
-    <path d="${line}" fill="none" stroke="${lastCrossed?'#22c197':'#2dd4bf'}" stroke-width="2.5" stroke-linecap="round"/>
-    <circle cx="${last[0]}" cy="${last[1]}" r="5.5" fill="${lastCrossed?'var(--red)':'var(--teal)'}" stroke="#0a0e15" stroke-width="2"/>
-    ${withToday!=null?`<g><rect x="${last[0]-20}" y="${last[1]-30}" width="40" height="20" rx="6" fill="${lastCrossed?'var(--red)':'var(--teal)'}"/><text x="${last[0]}" y="${last[1]-16}" fill="#0a0e15" font-size="11" font-weight="700" text-anchor="middle">${data[n-1]}</text></g>`:''}`;
-}
-drawChart(null);
+function render(){ renderNav(); renderTop(); renderContent(); }
 
-// BP mini bars
-(function(){ let g=''; for(let i=0;i<22;i++){ const h=8+Math.abs(Math.sin(i*0.9))*46*(0.5+Math.random()*0.5); g+=`<rect x="${i*8+2}" y="${70-h}" width="4.5" height="${h}" rx="2" fill="${i>17?'#cbd5e1':'rgba(148,163,184,.4)'}"/>`; } document.getElementById('bpbars').innerHTML=g; })();
-
-function showTab(t){
-  document.getElementById('view-patient').classList.toggle('hidden',t!=='patient');
-  document.getElementById('view-clinician').classList.toggle('hidden',t!=='clinician');
-  document.getElementById('tab-patient').classList.toggle('active',t==='patient');
-  document.getElementById('tab-clinician').classList.toggle('active',t==='clinician');
-}
-
-async function toggleRecord(){
-  if(recording){ stopRecord(); return; }
-  try{
-    micStream=await navigator.mediaDevices.getUserMedia({audio:true});
-    audioCtx=new (window.AudioContext||window.webkitAudioContext)();
-    const src=audioCtx.createMediaStreamSource(micStream);
-    analyser=audioCtx.createAnalyser(); analyser.fftSize=2048; src.connect(analyser);
-    recording=true;
-    document.getElementById('ring').classList.remove('hidden');
-    document.getElementById('micLabel').textContent='Listening… speak naturally, then tap to finish';
-    document.getElementById('liveFeat').classList.remove('hidden');
-    loopFeat();
-  }catch(e){
-    document.getElementById('micLabel').textContent='(no mic — running with sample audio)';
-    simulateFeat(); finishAnalysis();
+function renderContent(){
+  const c=document.getElementById('content');
+  if(state.role==='patient'){
+    if(state.pSection==='overview') return c.innerHTML=viewOverview(), afterOverview();
+    if(state.pSection==='checkin')  return c.innerHTML=viewCheckinFull();
+    if(state.pSection==='profile')  return c.innerHTML=viewProfile();
+    if(state.pSection==='settings') return c.innerHTML=viewSettings('patient');
+  } else {
+    if(state.cSection==='inbox')    return c.innerHTML=viewInbox();
+    if(state.cSection==='panel')    return c.innerHTML=viewPanel();
+    if(state.cSection==='audit')    return c.innerHTML=viewAudit();
+    if(state.cSection==='settings') return c.innerHTML=viewSettings('clinician');
   }
 }
-function loopFeat(){
-  const buf=new Float32Array(analyser.fftSize); analyser.getFloatTimeDomainData(buf);
-  let sum=0,zc=0; for(let i=0;i<buf.length;i++){ sum+=buf[i]*buf[i]; if(i&&((buf[i-1]<0&&buf[i]>=0)||(buf[i-1]>=0&&buf[i]<0))) zc++; }
-  const rms=Math.sqrt(sum/buf.length), zcr=zc/buf.length, pitch=estimatePitch(buf,audioCtx.sampleRate);
-  document.getElementById('fEnergy').textContent=(rms*100).toFixed(1);
-  document.getElementById('fZcr').textContent=(zcr*1000).toFixed(0);
-  document.getElementById('fPitch').textContent=pitch?pitch.toFixed(0):'—';
-  drawWave(buf); rafId=requestAnimationFrame(loopFeat);
-}
-function estimatePitch(buf,sr){ let bestLag=-1,best=0,S=buf.length,rms=0; for(let i=0;i<S;i++)rms+=buf[i]*buf[i]; rms=Math.sqrt(rms/S); if(rms<0.008)return null;
-  for(let lag=Math.floor(sr/400);lag<Math.floor(sr/70);lag++){ let c=0; for(let i=0;i<S-lag;i++)c+=buf[i]*buf[i+lag]; if(c>best){best=c;bestLag=lag;} } return bestLag>0?sr/bestLag:null; }
-function drawWave(buf){ const c=document.getElementById('wave'),x=c.getContext('2d'); x.clearRect(0,0,c.width,c.height); x.strokeStyle='#22c197'; x.lineWidth=1.5; x.beginPath();
-  for(let i=0;i<c.width;i++){ const v=buf[Math.floor(i/c.width*buf.length)]; const y=c.height/2+v*c.height*0.9; i?x.lineTo(i,y):x.moveTo(i,y);} x.stroke(); }
-function simulateFeat(){ document.getElementById('liveFeat').classList.remove('hidden'); document.getElementById('fEnergy').textContent='4.2'; document.getElementById('fZcr').textContent='121'; document.getElementById('fPitch').textContent='188'; }
-function stopRecord(){ recording=false; cancelAnimationFrame(rafId); if(micStream)micStream.getTracks().forEach(t=>t.stop());
-  document.getElementById('ring').classList.add('hidden'); document.getElementById('micLabel').textContent='Captured. Analyzing acoustic markers…'; finishAnalysis(); }
 
-function finishAnalysis(){
-  today=61;
-  setTimeout(()=>{
-    document.getElementById('micLabel').textContent='Analysis complete';
-    drawChart(today);
-    animateHero(60,61);
-    document.getElementById('verdict').innerHTML='<span class="text-rose-300 font-medium">▲ Drift detected.</span> Index 61 crossed the 58 threshold — an 18-day upward trend consistent with early sarcopenic decline.';
-    document.getElementById('verdict').classList.add('fade');
-    addChatBubble(); buildEscalation();
-  },1200);
-}
-function animateHero(a,b){ const el=document.getElementById('heroNum'); let t=0; const iv=setInterval(()=>{ t+=0.1; const v=a+(b-a)*Math.min(t,1); el.textContent=v.toFixed(1); if(t>=1)clearInterval(iv); },30); }
-
-function addChatBubble(){
-  const chat=document.getElementById('chat');
-  const s=document.createElement('div'); s.className='flex gap-2 items-start fade';
-  s.innerHTML='<div class="w-7 h-7 shrink-0 rounded-full grid place-items-center text-xs bg-white/10">S</div><div class="bg-teal-500/10 rounded-2xl rounded-tl-sm px-3 py-2 text-sm max-w-[85%]">"Honestly I feel fine, maybe just a bit tired."</div>';
-  chat.appendChild(s);
-  const a=document.createElement('div'); a.className='flex gap-2 items-start fade';
-  a.innerHTML='<div class="w-7 h-7 shrink-0 rounded-full grid place-items-center text-xs font-semibold" style="background:linear-gradient(135deg,var(--teal),var(--teal2));color:#0a0e15">U</div><div class="bg-white/[.05] rounded-2xl rounded-tl-sm px-3 py-2 text-sm max-w-[85%]">Thanks Sarah. You <span class="text-rose-300">said you feel fine</span>, but your voice tells a different story — I\'m looping in your care team. Keep up the protein and I\'ll check in tomorrow.</div>';
-  chat.appendChild(a);
-}
-
-let escalated=false;
-function buildEscalation(){
-  if(escalated)return; escalated=true;
-  const inbox=document.getElementById('inbox'); inbox.className='';
-  inbox.innerHTML=`
-   <div class="fade border border-rose-400/25 bg-rose-400/[.04] rounded-2xl p-5">
-    <div class="flex items-center justify-between mb-4">
-      <div><span class="text-rose-300 font-semibold">● Priority flag</span> · Sarah M., 52 · T2D + obesity, wk 6</div>
-      <div class="text-[11px] text-slate-500">generated from voice check-in · just now</div>
+// ---------- PATIENT: OVERVIEW ----------
+function viewOverview(){
+  return `<div class="grid grid-cols-12 gap-4">
+    <div class="col-span-12 lg:col-span-7 panel soft p-5">
+      <div class="flex items-start justify-between">
+        <div>
+          <div class="flex items-center gap-2 text-slate-300 text-sm font-medium"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal2)" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg> Muscle-Integrity Index</div>
+          <div class="mt-2 flex items-end gap-2"><span id="heroNum" class="text-5xl font-extrabold tracking-tight tabular-nums">60.0</span><span class="text-slate-500 mb-1.5 text-sm">idx</span><span class="mb-2 text-xs px-2 py-0.5 rounded-full bg-rose-400/10 text-rose-300 border border-rose-400/20">▲ rising · watch</span></div>
+          <div class="text-[11px] text-slate-500 mt-1">zero-crossing + peak-variation markers of sarcopenic frailty · JMIR 2024</div>
+        </div>
+        <div id="ranges" class="flex gap-1 bg-white/[.03] rounded-xl p-1">
+          ${['1D','1W','1M','1Y','All'].map(r=>`<span class="pill ${r===state.range?'active':''}" onclick="setRange('${r}')">${r}</span>`).join('')}
+        </div>
+      </div>
+      <div class="mt-2"><svg id="chart" viewBox="0 0 640 260" class="w-full"></svg></div>
+      <div id="verdict" class="text-sm text-slate-400 -mt-1"></div>
     </div>
+    <div class="col-span-12 lg:col-span-5 panel soft p-5">
+      <div class="flex items-center justify-between mb-4"><div class="flex items-center gap-2 text-slate-300 text-sm font-medium"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal2)" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12l2.5 2.5L16 9"/></svg> Organ signals</div><span class="text-xs text-teal-300 cursor-pointer" onclick="toast('Cardiac, glycemic & renal signals are on the roadmap')">See all</span></div>
+      <div class="grid grid-cols-4 gap-2 items-end" style="height:200px">
+        ${organBar('💪','Muscle','61','78%','linear-gradient(180deg,var(--teal),#0e9f7e)','LIVE','teal-300')}
+        ${organBar('🫀','Cardiac','—','34%','rgba(255,255,255,.06)','soon','slate-500')}
+        ${organBar('🩸','Glycemic','—','26%','rgba(255,255,255,.06)','soon','slate-500')}
+        ${organBar('🧫','Renal','—','20%','rgba(255,255,255,.06)','soon','slate-500')}
+      </div>
+      <div class="text-[11px] text-slate-500 mt-3">One listening layer, four organ systems. Add a system by adding rules — not retraining a black box.</div>
+    </div>
+    <div class="col-span-12 lg:col-span-5 panel soft p-5">${checkinCard()}</div>
+    <div class="col-span-12 lg:col-span-4 panel soft p-5">
+      <div class="flex items-center gap-2 text-slate-300 text-sm font-medium mb-3"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal2)" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg> Snap a reading</div>
+      <button onclick="doSnap()" class="w-full rounded-xl bg-white/[.04] border border-white/5 hover:bg-white/[.07] transition py-6 grid place-items-center mb-3"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#9fb4dd" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+      <div id="snapOut" class="text-sm text-slate-400">Photograph a BP cuff, scale, or plate — no typing.</div>
+    </div>
+    <div class="col-span-12 lg:col-span-3 panel soft p-5">
+      <div class="flex items-center gap-2 text-slate-300 text-sm font-medium mb-2"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal2)" stroke-width="2"><path d="M3 12h4l2 6 4-14 2 8h6"/></svg> Blood Pressure</div>
+      <svg viewBox="0 0 180 70" class="w-full"><g id="bpbars"></g></svg>
+      <div class="mt-1"><span id="bpNum" class="text-2xl font-bold tabular-nums">118</span><span class="text-slate-500 text-xs ml-1">/78 mmHg</span></div>
+    </div>
+  </div>`;
+}
+function organBar(emoji,label,val,h,bg,tag,color){
+  return `<div class="flex flex-col items-center h-full justify-end"><div class="text-lg font-bold ${val==='—'?'text-slate-400':''}">${val}</div><div class="w-full rounded-xl" style="height:${h};background:${bg}"></div><div class="mt-2 text-xs ${val==='—'?'text-slate-400':'text-slate-300'} flex flex-col items-center">${emoji} ${label}<span class="text-[10px] text-${color}">${tag}</span></div></div>`;
+}
+function checkinCard(){
+  return `<div class="flex items-center justify-between mb-3"><div class="text-slate-300 text-sm font-medium">Daily voice check-in · Day 21</div><div class="text-[11px] text-slate-500">~60s · no app to open</div></div>
+    <div id="chat" class="space-y-2.5 mb-4"><div class="flex gap-2 items-start fade"><div class="w-7 h-7 shrink-0 rounded-full grid place-items-center text-xs font-semibold" style="background:linear-gradient(135deg,var(--teal),var(--teal2));color:#0a0e15">U</div><div class="bg-white/[.05] rounded-2xl rounded-tl-sm px-3 py-2 text-sm max-w-[85%]">Morning, Sarah. Yesterday your legs felt heavy on the stairs — how are they today?</div></div></div>
+    <div class="grid place-items-center py-2"><div class="relative"><div id="ring" class="absolute inset-0 rounded-full pulse-ring hidden" style="background:var(--teal)"></div><button id="micBtn" onclick="toggleRecord()" class="relative w-16 h-16 rounded-full grid place-items-center soft transition" style="background:linear-gradient(135deg,var(--teal),var(--teal2))"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#0a0e15" stroke-width="2.2" stroke-linecap="round"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4"/></svg></button></div><div id="micLabel" class="text-sm text-slate-300 mt-2.5">${state.checkinDone?'Analysis complete':'Tap to answer out loud'}</div><canvas id="wave" width="360" height="42" class="mt-2 opacity-70"></canvas></div>
+    <div id="liveFeat" class="${state.checkinDone?'':'hidden'} grid grid-cols-3 gap-2 text-center mono text-xs mt-1"><div class="bg-white/[.04] rounded-lg py-2"><div class="text-slate-500">energy</div><div id="fEnergy" class="text-base text-teal-300">—</div></div><div class="bg-white/[.04] rounded-lg py-2"><div class="text-slate-500">ZCR</div><div id="fZcr" class="text-base text-teal-300">—</div></div><div class="bg-white/[.04] rounded-lg py-2"><div class="text-slate-500">pitch Hz</div><div id="fPitch" class="text-base text-teal-300">—</div></div></div>`;
+}
+function afterOverview(){ drawChart(); drawBP(); if(state.checkinDone){ document.getElementById('heroNum').textContent='61.0'; } }
+
+// ---------- PATIENT: CHECK-IN FULL ----------
+function viewCheckinFull(){ return `<div class="max-w-xl mx-auto panel soft p-6">${checkinCard()}<div class="text-[11px] text-slate-500 mt-4 text-center">Acoustic features are extracted on-device from natural speech. Raw audio never leaves your phone — only the derived index is shared, per your consent settings.</div></div>`; }
+
+// ---------- PATIENT: PROFILE ----------
+function viewProfile(){
+  return `<div class="grid md:grid-cols-2 gap-4">
+    <div class="panel soft p-5">
+      <div class="text-slate-300 text-sm font-medium mb-4">Patient profile</div>
+      ${kv('Name',patient.name)}${kv('Age',patient.age)}${kv('Programme','GLP-1 (semaglutide) + lifestyle')}${kv('Week','6 of 24')}${kv('Care team','Dr. Chen · Nurse Adeyemi')}${kv('Primary goals','Weight loss · glycemic control · muscle preservation')}
+    </div>
+    <div class="panel soft p-5">
+      <div class="text-slate-300 text-sm font-medium mb-4">Data sharing & consent</div>
+      ${toggle('share','Share derived signals with care team',true)}
+      ${toggle('research','Contribute anonymised data to research',false)}
+      ${toggle('raw','Store raw audio (off = on-device only)',false)}
+      <div class="text-[11px] text-slate-500 mt-3">Consent is purpose-bound and revocable. Every access to your data is written to an immutable audit log.</div>
+    </div>
+  </div>`;
+}
+function kv(k,v){ return `<div class="flex justify-between py-2 border-b border-white/5 text-sm"><span class="text-slate-500">${k}</span><span class="text-slate-200">${v}</span></div>`; }
+
+// ---------- SETTINGS ----------
+function viewSettings(role){
+  return `<div class="grid md:grid-cols-2 gap-4">
+    <div class="panel soft p-5"><div class="text-slate-300 text-sm font-medium mb-4">Security</div>
+      ${statusRow('End-to-end encryption','Active','teal')}
+      ${statusRow('Multi-factor auth','Enabled','teal')}
+      ${statusRow('Audit logging','On · immutable','teal')}
+      ${statusRow('Data residency','UK / EEA','teal')}
+    </div>
+    <div class="panel soft p-5"><div class="text-slate-300 text-sm font-medium mb-4">Notifications</div>
+      ${toggle('n1','Threshold-crossing alerts',true)}
+      ${toggle('n2','Daily check-in reminder',true)}
+      ${toggle('n3',role==='clinician'?'New escalation to my inbox':'Weekly trend summary',true)}
+      <div class="text-[11px] text-slate-500 mt-3">${role==='clinician'?'Alerts route only for patients on your care team.':'You control every notification. Nothing is shared without consent.'}</div>
+    </div>
+  </div>`;
+}
+function statusRow(k,v,c){ return `<div class="flex items-center justify-between py-2.5 border-b border-white/5 text-sm"><span class="text-slate-400">${k}</span><span class="text-${c}-300 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-${c}-400"></span>${v}</span></div>`; }
+function toggle(id,label,on){ return `<div class="flex items-center justify-between py-2.5"><span class="text-sm text-slate-300">${label}</span><div class="switch ${on?'on':''}" onclick="this.classList.toggle('on');toast('Preference saved')"><div class="dot"></div></div></div>`; }
+
+// ---------- CLINICIAN: INBOX ----------
+function viewInbox(){
+  if(state.escalation==='resolved') return `<div class="panel soft p-5"><div class="text-slate-300 text-sm font-medium mb-4">Clinical inbox</div><div class="text-sm text-slate-500 py-10 text-center">✓ Inbox clear. The Sarah M. escalation was actioned — see the <span class="underline cursor-pointer" onclick="goSection('audit')">audit log</span>.</div></div>`;
+  if(!state.checkinDone) return `<div class="panel soft p-5"><div class="text-slate-300 text-sm font-medium mb-4">Clinical inbox</div><div class="text-sm text-slate-500 py-10 text-center">No open escalations. Run the patient voice check-in (Patient view) to generate one.</div></div>`;
+  return `<div class="panel soft p-5"><div class="flex items-center justify-between mb-4"><div class="text-slate-300 text-sm font-medium">Clinical inbox · escalations that crossed a threshold</div><div class="text-[11px] text-slate-500">human-in-the-loop · nothing auto-diagnosed</div></div>${escalationCard()}</div>`;
+}
+function escalationCard(){
+  return `<div class="fade border border-rose-400/25 bg-rose-400/[.04] rounded-2xl p-5">
+    <div class="flex items-center justify-between mb-4"><div><span class="text-rose-300 font-semibold">● Priority flag</span> · Sarah M., 52 · T2D + obesity, wk 6</div><div class="text-[11px] text-slate-500">generated from voice check-in · just now</div></div>
     <div class="grid md:grid-cols-2 gap-5">
-      <div>
-        <div class="text-xs uppercase tracking-wider text-slate-500 mb-2">Why this escalated — reasoning trace</div>
+      <div><div class="text-xs uppercase tracking-wider text-slate-500 mb-2">Why this escalated — reasoning trace</div>
         <pre class="mono text-[11px] leading-relaxed bg-black/40 border border-white/5 rounded-xl p-3 whitespace-pre-wrap">RULE muscle_decline_alert:
  IF   voice_index_slope(18d) > 0
  AND  voice_index(today) ≥ 58   → 61 ✓
@@ -336,29 +274,82 @@ function buildEscalation(){
 evidence:
  • ZCR + peak-variation markers ↑ 18d
  • sarcopenic-frailty phenotype (JMIR 2024)
- • signal precedes patient-noticed symptom</pre>
-      </div>
-      <div>
-        <div class="text-xs uppercase tracking-wider text-slate-500 mb-2">Suggested action</div>
-        <ul class="text-sm space-y-1.5 text-slate-200">
-          <li>• Order DEXA / bioimpedance to confirm lean-mass loss</li>
-          <li>• Reinforce protein target + resistance training</li>
-          <li>• Review GLP-1 titration vs. muscle preservation</li>
-        </ul>
+ • signal precedes patient-noticed symptom</pre></div>
+      <div><div class="text-xs uppercase tracking-wider text-slate-500 mb-2">Suggested action</div>
+        <ul class="text-sm space-y-1.5 text-slate-200"><li>• Order DEXA / bioimpedance to confirm lean-mass loss</li><li>• Reinforce protein target + resistance training</li><li>• Review GLP-1 titration vs. muscle preservation</li></ul>
         <div class="text-[11px] text-slate-500 mt-3">40–60% of GLP-1 weight loss is lean muscle. Today only a clinic DEXA catches this — Undertone caught it from a phone call, weeks earlier.</div>
-        <div class="flex gap-2 mt-4">
-          <button onclick="this.textContent='✓ Approved & actioned';this.disabled=true" class="px-3.5 py-1.5 rounded-lg text-sm bg-emerald-500/20 border border-emerald-400/40 text-emerald-200">Approve</button>
-          <button class="px-3.5 py-1.5 rounded-lg text-sm bg-white/[.04] border border-white/10 text-slate-300">Dismiss</button>
-        </div>
+        <div class="flex gap-2 mt-4"><button onclick="resolveEsc('approved')" class="px-3.5 py-1.5 rounded-lg text-sm bg-emerald-500/20 border border-emerald-400/40 text-emerald-200 hover:bg-emerald-500/30">Approve & order</button><button onclick="resolveEsc('dismissed')" class="px-3.5 py-1.5 rounded-lg text-sm bg-white/[.04] border border-white/10 text-slate-300 hover:bg-white/[.08]">Dismiss</button></div>
       </div>
-    </div>
-   </div>`;
-  const t=document.getElementById('tab-clinician');
-  if(!t.innerHTML.includes('•')) t.innerHTML='Clinician <span class="text-rose-400">•</span>';
+    </div></div>`;
 }
 
-function doSnap(){ const out=document.getElementById('snapOut'); out.textContent='Reading photo…';
-  setTimeout(()=>{ out.innerHTML='<span class="text-teal-300 font-medium">BP 148/92</span> logged · slightly high — "let\'s ease off salt today, I\'ll recheck tomorrow."'; document.getElementById('bpNum').textContent='148'; },900); }
+// ---------- CLINICIAN: PANEL ----------
+function viewPanel(filter=''){
+  const list = cohort.filter(p=>p.name.toLowerCase().includes(filter.toLowerCase())||p.tag.toLowerCase().includes(filter.toLowerCase()));
+  const badge={flag:'bg-rose-400',watch:'bg-amber-400',stable:'bg-emerald-400'};
+  const label={flag:'Priority',watch:'Watch',stable:'Stable'};
+  return `<div class="panel soft p-5"><div class="flex items-center justify-between mb-4"><div class="text-slate-300 text-sm font-medium">Your patient panel</div><div class="text-[11px] text-slate-500">${list.length} shown · access audit-logged</div></div>
+    <div id="panelList">${list.map(p=>`<div class="row flex items-center gap-3 px-3 py-3 rounded-xl border border-white/5 mb-2" onclick="openPatient('${p.id}')">
+      <div class="w-9 h-9 rounded-full bg-white/10 grid place-items-center text-xs font-semibold">${p.name[0]}</div>
+      <div class="flex-1 min-w-0"><div class="text-sm text-slate-200">${p.name} · ${p.age} <span class="text-slate-500">· ${p.tag}</span></div><div class="text-[11px] text-slate-500">${p.note}</div></div>
+      <div class="text-[11px] flex items-center gap-1.5 text-slate-400"><span class="w-1.5 h-1.5 rounded-full ${badge[p.status]}"></span>${label[p.status]}</div>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg></div>`).join('')||'<div class="text-sm text-slate-500 py-8 text-center">No patients match.</div>'}</div></div>`;
+}
+function filterPanel(v){ if(state.role==='clinician'&&state.cSection==='panel') document.getElementById('content').innerHTML=viewPanel(v); }
+function openPatient(id){
+  const p=cohort.find(x=>x.id===id); logAudit('Dr. Chen','Opened patient record',p.name);
+  if(id==='sarah'&&state.checkinDone&&state.escalation==='open'){ state.cSection='inbox'; render(); toast('Opened Sarah M. — active escalation'); }
+  else toast(`${p.name}: ${p.note} — access logged`);
+}
+
+// ---------- CLINICIAN: AUDIT ----------
+function viewAudit(){
+  return `<div class="panel soft p-5"><div class="flex items-center justify-between mb-4"><div class="text-slate-300 text-sm font-medium">Audit log · immutable access trail</div><div class="text-[11px] text-slate-500">HIPAA / GDPR · who · what · when</div></div>
+    <div class="space-y-1">${audit.slice().reverse().map(a=>`<div class="flex items-center gap-3 px-3 py-2.5 rounded-lg border border-white/5 text-sm"><span class="mono text-[11px] text-slate-500 w-12">${a.t}</span><span class="text-slate-300 flex-1">${a.who} — ${a.act}</span><span class="text-slate-500 text-[12px]">${a.obj}</span></div>`).join('')}</div>
+    <div class="text-[11px] text-slate-500 mt-3">Every record access and clinical action is logged and tamper-evident. This is what makes an AI escalation trustworthy — and auditable.</div></div>`;
+}
+function logAudit(who,act,obj){ const t=new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'}); audit.push({t,who,act,obj}); }
+
+// ---------------- ACTIONS ----------------
+function setRole(r){ state.role=r; document.getElementById('role-patient').classList.toggle('active',r==='patient'); document.getElementById('role-clinician').classList.toggle('active',r==='clinician'); if(r==='clinician') logAudit('Dr. Chen','Viewed clinician dashboard','—'); render(); }
+function goSection(id){ if(state.role==='patient') state.pSection=id; else state.cSection=id; render(); }
+function setRange(r){ state.range=r; document.querySelectorAll('#ranges .pill').forEach(p=>p.classList.toggle('active',p.textContent===r)); drawChart(); }
+function resolveEsc(kind){ state.escalation='resolved'; logAudit('Dr. Chen', kind==='approved'?'Approved escalation · ordered DEXA':'Dismissed escalation','Sarah M.'); toast(kind==='approved'?'DEXA ordered · care team notified · logged':'Escalation dismissed · logged'); render(); }
+function toast(msg){ const t=document.createElement('div'); t.className='toast'; t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),2200); }
+
+// ---------------- CHART ----------------
+function smooth(pts){ if(pts.length<3) return pts.map((p,i)=>(i?'L':'M')+p[0]+' '+p[1]).join(' '); let d='M'+pts[0][0]+' '+pts[0][1];
+  for(let i=0;i<pts.length-1;i++){ const p0=pts[i-1]||pts[i],p1=pts[i],p2=pts[i+1],p3=pts[i+2]||p2; const c1x=p1[0]+(p2[0]-p0[0])/6,c1y=p1[1]+(p2[1]-p0[1])/6,c2x=p2[0]-(p3[0]-p1[0])/6,c2y=p2[1]-(p3[1]-p1[1])/6; d+=` C${c1x.toFixed(1)} ${c1y.toFixed(1)}, ${c2x.toFixed(1)} ${c2y.toFixed(1)}, ${p2[0].toFixed(1)} ${p2[1].toFixed(1)}`; } return d; }
+function drawChart(){ const svg=document.getElementById('chart'); if(!svg) return; const W=640,H=260,pad=30,padT=20;
+  let data=[...DATA[state.range]]; if(state.checkinDone) data.push(61);
+  const n=data.length,min=25,max=68; const x=i=>pad+i*(W-2*pad)/(n-1),y=v=>H-pad-(v-min)*(H-pad-padT)/(max-min);
+  const pts=data.map((v,i)=>[x(i),y(v)]),line=smooth(pts),area=line+` L${x(n-1)} ${H-pad} L${x(0)} ${H-pad} Z`,thY=y(threshold),last=pts[n-1],crossed=data[n-1]>=threshold;
+  svg.innerHTML=`<defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22c197" stop-opacity="0.35"/><stop offset="1" stop-color="#22c197" stop-opacity="0"/></linearGradient></defs>
+    ${[40,50,60,70,80].map(v=>`<line x1="${pad}" y1="${y(v)}" x2="${W-pad}" y2="${y(v)}" stroke="rgba(255,255,255,.04)"/>`).join('')}
+    <line x1="${pad}" y1="${thY}" x2="${W-pad}" y2="${thY}" stroke="var(--red)" stroke-width="1" stroke-dasharray="5 5" opacity=".7"/><text x="${W-pad}" y="${thY-6}" fill="var(--red)" font-size="10" text-anchor="end">escalation threshold</text>
+    <path d="${area}" fill="url(#ag)"/><path d="${line}" fill="none" stroke="${crossed?'#22c197':'#2dd4bf'}" stroke-width="2.5" stroke-linecap="round"/>
+    <circle cx="${last[0]}" cy="${last[1]}" r="5.5" fill="${crossed?'var(--red)':'var(--teal)'}" stroke="#0a0e15" stroke-width="2"/>
+    ${state.checkinDone?`<g><rect x="${last[0]-20}" y="${last[1]-30}" width="40" height="20" rx="6" fill="${crossed?'var(--red)':'var(--teal)'}"/><text x="${last[0]}" y="${last[1]-16}" fill="#0a0e15" font-size="11" font-weight="700" text-anchor="middle">${data[n-1]}</text></g>`:''}`;
+}
+function drawBP(){ const el=document.getElementById('bpbars'); if(!el)return; let g=''; for(let i=0;i<22;i++){ const h=8+Math.abs(Math.sin(i*0.9))*46*(0.5+((i*37)%10)/20); g+=`<rect x="${i*8+2}" y="${70-h}" width="4.5" height="${h}" rx="2" fill="${i>17?'#cbd5e1':'rgba(148,163,184,.4)'}"/>`; } el.innerHTML=g; }
+
+// ---------------- MIC ----------------
+async function toggleRecord(){ if(recording){ stopRecord(); return; }
+  try{ micStream=await navigator.mediaDevices.getUserMedia({audio:true}); audioCtx=new (window.AudioContext||window.webkitAudioContext)(); const src=audioCtx.createMediaStreamSource(micStream); analyser=audioCtx.createAnalyser(); analyser.fftSize=2048; src.connect(analyser); recording=true;
+    document.getElementById('ring').classList.remove('hidden'); document.getElementById('micLabel').textContent='Listening… speak, then tap to finish'; document.getElementById('liveFeat').classList.remove('hidden'); loopFeat();
+  }catch(e){ document.getElementById('micLabel').textContent='(no mic — running with sample audio)'; simulateFeat(); finishAnalysis(); } }
+function loopFeat(){ const buf=new Float32Array(analyser.fftSize); analyser.getFloatTimeDomainData(buf); let sum=0,zc=0; for(let i=0;i<buf.length;i++){ sum+=buf[i]*buf[i]; if(i&&((buf[i-1]<0&&buf[i]>=0)||(buf[i-1]>=0&&buf[i]<0)))zc++; } const rms=Math.sqrt(sum/buf.length),zcr=zc/buf.length,pitch=estimatePitch(buf,audioCtx.sampleRate); document.getElementById('fEnergy').textContent=(rms*100).toFixed(1); document.getElementById('fZcr').textContent=(zcr*1000).toFixed(0); document.getElementById('fPitch').textContent=pitch?pitch.toFixed(0):'—'; drawWave(buf); rafId=requestAnimationFrame(loopFeat); }
+function estimatePitch(buf,sr){ let bestLag=-1,best=0,S=buf.length,rms=0; for(let i=0;i<S;i++)rms+=buf[i]*buf[i]; rms=Math.sqrt(rms/S); if(rms<0.008)return null; for(let lag=Math.floor(sr/400);lag<Math.floor(sr/70);lag++){ let c=0; for(let i=0;i<S-lag;i++)c+=buf[i]*buf[i+lag]; if(c>best){best=c;bestLag=lag;} } return bestLag>0?sr/bestLag:null; }
+function drawWave(buf){ const c=document.getElementById('wave'); if(!c)return; const x=c.getContext('2d'); x.clearRect(0,0,c.width,c.height); x.strokeStyle='#22c197'; x.lineWidth=1.5; x.beginPath(); for(let i=0;i<c.width;i++){ const v=buf[Math.floor(i/c.width*buf.length)]; const y=c.height/2+v*c.height*0.9; i?x.lineTo(i,y):x.moveTo(i,y);} x.stroke(); }
+function simulateFeat(){ document.getElementById('liveFeat').classList.remove('hidden'); document.getElementById('fEnergy').textContent='4.2'; document.getElementById('fZcr').textContent='121'; document.getElementById('fPitch').textContent='188'; }
+function stopRecord(){ recording=false; cancelAnimationFrame(rafId); if(micStream)micStream.getTracks().forEach(t=>t.stop()); document.getElementById('ring').classList.add('hidden'); document.getElementById('micLabel').textContent='Captured. Analyzing acoustic markers…'; finishAnalysis(); }
+function finishAnalysis(){ setTimeout(()=>{ state.checkinDone=true; const lbl=document.getElementById('micLabel'); if(lbl)lbl.textContent='Analysis complete'; drawChart(); animateHero(60,61); const v=document.getElementById('verdict'); if(v){ v.innerHTML='<span class="text-rose-300 font-medium">▲ Drift detected.</span> Index 61 crossed the 58 threshold — an 18-day upward trend consistent with early sarcopenic decline.'; v.classList.add('fade'); } addChatBubble(); logAudit('Undertone AI','Escalation generated (muscle_decline_alert)','Sarah M.'); document.getElementById('role-clinician').innerHTML='Clinician <span class="text-rose-400">•</span>'; },1200); }
+function animateHero(a,b){ const el=document.getElementById('heroNum'); if(!el)return; let t=0; const iv=setInterval(()=>{ t+=0.1; el.textContent=(a+(b-a)*Math.min(t,1)).toFixed(1); if(t>=1)clearInterval(iv); },30); }
+function addChatBubble(){ const chat=document.getElementById('chat'); if(!chat)return; const s=document.createElement('div'); s.className='flex gap-2 items-start fade'; s.innerHTML='<div class="w-7 h-7 shrink-0 rounded-full grid place-items-center text-xs bg-white/10">S</div><div class="bg-teal-500/10 rounded-2xl rounded-tl-sm px-3 py-2 text-sm max-w-[85%]">"Honestly I feel fine, maybe just a bit tired."</div>'; chat.appendChild(s); const a=document.createElement('div'); a.className='flex gap-2 items-start fade'; a.innerHTML='<div class="w-7 h-7 shrink-0 rounded-full grid place-items-center text-xs font-semibold" style="background:linear-gradient(135deg,var(--teal),var(--teal2));color:#0a0e15">U</div><div class="bg-white/[.05] rounded-2xl rounded-tl-sm px-3 py-2 text-sm max-w-[85%]">Thanks Sarah. You <span class="text-rose-300">said you feel fine</span>, but your voice tells a different story — I\'m looping in your care team. Keep up the protein and I\'ll check in tomorrow.</div>'; chat.appendChild(a); }
+function doSnap(){ const out=document.getElementById('snapOut'); if(!out)return; out.textContent='Reading photo…'; setTimeout(()=>{ out.innerHTML='<span class="text-teal-300 font-medium">BP 148/92</span> logged · slightly high — "let\'s ease off salt today, I\'ll recheck tomorrow."'; const b=document.getElementById('bpNum'); if(b)b.textContent='148'; logAudit('Sarah M.','Logged BP reading (vision)','self'); },900); }
+
+// init
+render();
 </script>
 </body>
 </html>
