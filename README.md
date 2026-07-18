@@ -19,6 +19,13 @@ https://github.com/user-attachments/assets/7afe29bd-d086-4188-9018-7f0ce31bc703
 <img width="385" height="610" alt="image" src="https://github.com/user-attachments/assets/658d9369-a4e7-4816-98e6-cf113b984e9e" />
 
 
+
+<img width="1230" height="673" alt="image" src="https://github.com/user-attachments/assets/e1ea2e55-0c01-41e5-aeff-3a4aafe1e5a6" />
+
+
+
+
+
 ## The one-line thesis
 50% of metabolic-programme patients quit within a year; the proven fix is frequent contact (49×
 persistence with 5+ visits) but the system can't scale it. Voice — proven to detect deterioration
