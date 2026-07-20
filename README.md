@@ -5,7 +5,7 @@
 > the roadmap, cardiac / glycemic / renal decline), detects drift over time, and escalates an
 > explainable, cited summary to a clinician — human-in-the-loop, never an autonomous diagnosis.
 >
-> Built for the ReimagineHealth hackathon (eMed × OpenAI). *Working name — see [NAMES.md](./NAMES.md).*
+> Built for the ReimagineHealth hackathon (eMed × OpenAI). *Working name — see [pitch/NAMES.md](./pitch/NAMES.md).*
 
 ## The one-line thesis
 50% of metabolic-programme patients quit within a year; the proven fix is frequent contact (49×
@@ -26,14 +26,15 @@ then switch to the **Clinician** tab to see the explainable escalation.
 
 ## Repo contents
 - `demo/` — the working prototype (patient dashboard + clinician escalation view)
-- `MARKET-RESEARCH.md`, `VOCAL-BIOMARKER-SCIENCE.md`, `DISEASE-LANDSCAPE.md` — the cited evidence base
-- `DIFFERENTIATION.md`, `STARTUP-LANDSCAPE-AND-FRICTION.md`, `CRITICAL-APPRAISAL-KIDNEY.md` — competitive & defensibility analysis
-- `VISION-PIVOT.md`, `ARCHITECTURE-DECISIONS.md` — the concept and technical decisions
-- `CUE-CARDS.md` — 3-minute pitch + demo narration
-- `GAMMA-DECK-PROMPT.md` — prompt to generate the pitch deck
-- `NAMES.md` — naming options
+- `research/` — the cited evidence base, competitive analysis, and concept development:
+  `MARKET-RESEARCH.md`, `VOCAL-BIOMARKER-SCIENCE.md`, `DISEASE-LANDSCAPE.md`,
+  `DIFFERENTIATION.md`, `STARTUP-LANDSCAPE-AND-FRICTION.md`, `CRITICAL-APPRAISAL-KIDNEY.md`,
+  `VISION-PIVOT.md`, `ARCHITECTURE-DECISIONS.md`, and more
+- `pitch/` — presentation materials: `CUE-CARDS.md` (3-minute pitch + demo narration),
+  `GAMMA-DECK-PROMPT.md` (deck generation prompt), `PROMETHEUX-ONTOLOGY-PROMPT.md`
+  (explainable-reasoning ontology prompt), `NAMES.md` (naming options)
 
 ## Status
 Prototype. Muscle-integrity voice signal is demonstrated live; cardiac / glycemic / renal are
 roadmap. Acoustic feature extraction is real; the wet/dry training labels are simulated for the
-demo (see [VOCAL-BIOMARKER-SCIENCE.md](./VOCAL-BIOMARKER-SCIENCE.md) for the honest framing).
+demo (see [research/VOCAL-BIOMARKER-SCIENCE.md](./research/VOCAL-BIOMARKER-SCIENCE.md) for the honest framing).
